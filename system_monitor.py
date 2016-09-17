@@ -64,8 +64,8 @@ def monitor_hdds(machine, drive_paths, period, tags, db):
 
         # Take measurements
         for drive in drives:
-            temp = drive.temperature()
-            print(drive.path + ": " + temp)
+            temp = drive.temperature(True)
+            print(drive.path + ": " + str(temp))
             point = copy.deepcopy(measurement_template)
             point["tags"]["drive"] = drive.path
             point["fields"]["value"] = temp
