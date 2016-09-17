@@ -33,7 +33,7 @@ class Drive(object):
         # 194 Temperature_Celsius     0x0002   130   130   000    Old_age   Always       -       46 (Min/Max 24/59)
         match = re.findall("^[0-9]+ Temperature_Celsius.*", self._memo_smart, re.MULTILINE)
         if match:
-            return match[0].split()[9]
+            return float(match[0].split()[9])
 
 
 
