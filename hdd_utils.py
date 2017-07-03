@@ -13,13 +13,14 @@ class Drive(object):
         self._memo_smart = {}
 
     def _memoize_smart(self):
-        smart = run("smartctl -a " + self.path)
-        if smart.succeeded:
-            self._memo_smart = str(smart)
-        else:
-            print("drive(%s): could not update smart data!", file=sys.stderr)
-            print(smart, file=sys.stderr)
-        return smart.succeeded
+        with settings(warn_only=True):
+            smart = run("smartctl -a " + self.path)
+            if smart.succeeded:
+                self._memo_smart = str(smart)
+            else:
+                print("drive(%s): could not update smart data!", file=sys.stderr)
+                print(smart, file=sys.stderr)
+            return smart.succeeded
 
     def _update(self, force_update=False):
         print("Updating SMART info")
